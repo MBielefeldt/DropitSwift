@@ -8,12 +8,14 @@
 
 import UIKit
 
-class DropitViewController: UIViewController
+class DropitViewController: UIViewController, UIDynamicAnimatorDelegate
 {
     @IBOutlet weak var gameView: UIView!
     
     lazy var animator: UIDynamicAnimator = {
-       return UIDynamicAnimator(referenceView: self.gameView) /* use lazy here to be allowed to reference gameView */
+        let lazilyCreatedAnimator = UIDynamicAnimator(referenceView: self.gameView) /* use lazy here to be allowed to reference gameView */
+        lazilyCreatedAnimator.delegate = self
+        return lazilyCreatedAnimator
     }()
     
     let dropitBehavior = DropitBehavior()
@@ -23,6 +25,11 @@ class DropitViewController: UIViewController
         super.viewDidLoad()
         
         animator.addBehavior(dropitBehavior)
+    }
+    
+    func dynamicAnimatorDidPause(animator: UIDynamicAnimator)
+    {
+        removeCompletedRow()
     }
     
     var dropsPerRow = 10
@@ -46,6 +53,41 @@ class DropitViewController: UIViewController
         dropView.backgroundColor = UIColor.random
         
         dropitBehavior.addDrop(dropView)
+    }
+    
+    private func removeCompletedRow()
+    {
+        var dropsToRemove = [UIView]()
+        var dropFrame = CGRect(x: 0, y: gameView.frame.maxY, width: dropSize.width, height: dropSize.height)
+        
+        do {
+            dropFrame.origin.x = 0
+            dropFrame.origin.y -= dropSize.height
+
+            var dropsFound = [UIView]()
+            var rowIsComplete = true
+            
+            for _ in 0 ..< dropsPerRow {
+                if let hitView = gameView.hitTest(CGPoint(x: dropFrame.midX, y: dropFrame.midY), withEvent: nil) {
+                    if hitView.superview == gameView {
+                        dropsFound.append(hitView)
+                    } else {
+                        rowIsComplete = false
+                        break;
+                    }
+                }
+                dropFrame.origin.x += dropFrame.width
+            }
+            
+            if rowIsComplete {
+                dropsToRemove += dropsFound
+            }
+        
+        } while dropsToRemove.count == 0 && dropFrame.origin.y > 0
+        
+        for drop in dropsToRemove {
+            dropitBehavior.removeDrop(drop)
+        }
     }
 }
 
