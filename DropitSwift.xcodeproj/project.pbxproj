@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		080E644B1B20139A00525197 /* DropitBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080E644A1B20139A00525197 /* DropitBehavior.swift */; };
 		08EB50AD1B1FAA800025E630 /* DropitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB50AC1B1FAA800025E630 /* DropitViewController.swift */; };
 		BF86125078FB903EDC0C954A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF861FD46BF647E78E9D5874 /* LaunchScreen.xib */; };
 		BF86154819197BE1BCE0B114 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF861268F700F31E4B4203C7 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		080E644A1B20139A00525197 /* DropitBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropitBehavior.swift; sourceTree = "<group>"; };
 		08EB50AC1B1FAA800025E630 /* DropitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropitViewController.swift; sourceTree = "<group>"; };
 		BF861091F4689FC6687E0B1E /* DropitSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DropitSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF8614ED380B617BB1D35E7C /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				BF861268F700F31E4B4203C7 /* Main.storyboard */,
+				080E644A1B20139A00525197 /* DropitBehavior.swift */,
 				08EB50AC1B1FAA800025E630 /* DropitViewController.swift */,
 				BF861BB8A0CEE38EBD2C529E /* Supporting Files */,
 			);
@@ -203,6 +206,7 @@
 			files = (
 				08EB50AD1B1FAA800025E630 /* DropitViewController.swift in Sources */,
 				BF8616B3979C6554131B89AA /* AppDelegate.swift in Sources */,
+				080E644B1B20139A00525197 /* DropitBehavior.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
