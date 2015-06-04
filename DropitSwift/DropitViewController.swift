@@ -12,6 +12,25 @@ class DropitViewController: UIViewController
 {
     @IBOutlet weak var gameView: UIView!
     
+    lazy var animator: UIDynamicAnimator = {
+       return UIDynamicAnimator(referenceView: self.gameView) /* use lazy here to be allowed to reference gameView */
+    }()
+    
+    let gravity = UIGravityBehavior()
+    
+    lazy var collider: UICollisionBehavior = {
+        let lazilyCreatedCollider = UICollisionBehavior()
+        lazilyCreatedCollider.translatesReferenceBoundsIntoBoundary = true /* use lazy to allow configuration (could apparently have been done without lazy as well) */
+        return lazilyCreatedCollider
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        animator.addBehavior(gravity)
+        animator.addBehavior(collider)
+    }
+    
     var dropsPerRow = 10
     
     var dropSize: CGSize {
@@ -33,6 +52,9 @@ class DropitViewController: UIViewController
         dropView.backgroundColor = UIColor.random
         
         gameView.addSubview(dropView)
+        
+        gravity.addItem(dropView)
+        collider.addItem(dropView)
     }
 }
 
@@ -53,7 +75,7 @@ private extension UIColor
             case 2:  return UIColor.orangeColor()
             case 3:  return UIColor.redColor()
             case 4:  return UIColor.purpleColor()
-            default: return UIColor.greenColor()
+            default: return UIColor.blackColor()
         }
     }
 }
