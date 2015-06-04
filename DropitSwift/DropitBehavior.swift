@@ -12,10 +12,17 @@ class DropitBehavior: UIDynamicBehavior
 {
     let gravity = UIGravityBehavior()
     
-    lazy var collider: UICollisionBehavior = {
-        let lazilyCreatedCollider = UICollisionBehavior()
-        lazilyCreatedCollider.translatesReferenceBoundsIntoBoundary = true /* use lazy to allow configuration (could apparently have been done without lazy as well) */
-        return lazilyCreatedCollider
+    let collider: UICollisionBehavior = {
+        let collider = UICollisionBehavior()
+        collider.translatesReferenceBoundsIntoBoundary = true
+        return collider
+    }()
+    
+    let dropBehavior: UIDynamicItemBehavior = {
+        let dropBehavior = UIDynamicItemBehavior()
+        dropBehavior.allowsRotation = false
+        dropBehavior.elasticity = 0.75
+        return dropBehavior
     }()
     
     override init()
@@ -24,6 +31,7 @@ class DropitBehavior: UIDynamicBehavior
         
         self.addChildBehavior(gravity)
         self.addChildBehavior(collider)
+        self.addChildBehavior(dropBehavior)
     }
     
     func addDrop(drop: UIView)
@@ -32,12 +40,14 @@ class DropitBehavior: UIDynamicBehavior
         
         gravity.addItem(drop)
         collider.addItem(drop)
+        dropBehavior.addItem(drop)
     }
     
     func removeDrop(drop: UIView)
     {
         gravity.removeItem(drop)
         collider.removeItem(drop)
+        dropBehavior.removeItem(drop)
         
         drop.removeFromSuperview()
     }
